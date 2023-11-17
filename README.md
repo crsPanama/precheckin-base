@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Nuxt Layer Starter
 
 Create Nuxt extendable layer with this GitHub template.
@@ -71,3 +72,7 @@ pnpm preview
 ```
 
 Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+=======
+# precheckin-base
+precheckin base files
+>>>>>>> 0acfc594efc44c4d166242683c28e8fcd081a2bc
