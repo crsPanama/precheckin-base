@@ -1,16 +1,9 @@
 {
-  "name": "my-nuxt-layer",
+  "name": "crs-precheckin-base",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "main": "./nuxt.config.ts",
-  "scripts": {
-    "dev": "nuxi dev .playground",
-    "build": "nuxt build .playground",
-    "generate": "nuxt generate .playground",
-    "preview": "nuxt preview .playground",
-    "lint": "eslint .",
-    "postinstall": "nuxt prepare .playground"
-  },
+  "scripts": {},
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
     "@nuxtjs/eslint-module": "^4.1.0",
