@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { Field, Form, ErrorMessage } from 'vee-validate';
-import schema from '../../schemas/homeFormSchema';
+// import schema from '../../schemas/homeFormSchema';
 interface Props {
   submitFunction: () => void;
+  schema: Object;
 }
 defineProps<Props>();
 

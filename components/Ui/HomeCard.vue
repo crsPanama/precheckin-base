@@ -7,6 +7,7 @@ interface Props {
   backgroundColor: string;
   textColor: string;
   alertMessage: AlertInfo;
+  formValidationSchema: Object;
   submitFuntion: () => void;
 }
 withDefaults(defineProps<Props>(), {
@@ -24,7 +25,10 @@ withDefaults(defineProps<Props>(), {
         <h1 class="text-xl m-0 pb-4 font-bold lg:text-2xl">
           {{ $t('home.title') }}
         </h1>
-        <!-- <UiHomeForm :submit-function="submitFuntion" /> -->
+        <UiHomeForm
+          :submit-function="submitFuntion"
+          :schema="formValidationSchema"
+        />
         <UiAlertMessage
           v-if="alertMessage.type"
           class="pt-3"
