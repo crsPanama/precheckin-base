@@ -1,7 +1,7 @@
 {
-  "name": "crs-precheckin-base",
+  "name": "crs-precheckin-layer",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./nuxt.config.ts",
   "scripts": {},
   "devDependencies": {
@@ -24,6 +24,7 @@
     "crs_layer": "^1.9.8",
     "nuxt-directus": "^5.6.0",
     "pinia": "^2.1.7",
+    "tiny-case": "^1.0.3",
     "yup": "^1.3.2"
   }
 }
