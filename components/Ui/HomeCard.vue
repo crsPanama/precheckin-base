@@ -24,7 +24,7 @@ withDefaults(defineProps<Props>(), {
         <h1 class="text-xl m-0 pb-4 font-bold lg:text-2xl">
           {{ $t('home.title') }}
         </h1>
-        <UiHomeForm :submit-function="submitFuntion" />
+        <!-- <UiHomeForm :submit-function="submitFuntion" /> -->
         <UiAlertMessage
           v-if="alertMessage.type"
           class="pt-3"
