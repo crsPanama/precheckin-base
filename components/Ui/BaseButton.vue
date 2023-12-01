@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  clickFunciton: () => void;
+  clickFunciton?: () => void;
   width?: string;
   height?: string;
   backgroundColor: string;
@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<Props>(), {
   width: '50px',
   lightText: false,
   height: 'fit-content',
+  clickFunciton: () => {},
 });
 
 const textColor = computed(() => {

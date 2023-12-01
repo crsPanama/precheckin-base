@@ -1,27 +1,37 @@
 <script setup lang="ts">
 import { Field, Form, ErrorMessage } from 'vee-validate';
-// import schema from '../../schemas/homeFormSchema';
+import type { FormValues } from '../../types/types';
 interface Props {
   submitFunction: () => void;
   schema: Object;
 }
+
 defineProps<Props>();
 
-const values = ref({
-  name: '',
+const emit = defineEmits<{
+  (e: 'submit', values: FormValues): void;
+}>();
+
+const formValues = ref<FormValues>({
+  reservation: '',
   email: '',
 });
+
+const onSubmit = (values: any) => {
+  formValues.value = values;
+  emit('submit', formValues.value);
+};
 </script>
 <template>
   <Form
     class="flex flex-col md:flex-row mx-auto w-11/12 gap-y-2 gap-x-2 md:w-full"
     :validation-schema="schema"
-    @submit="submitFunction"
+    @submit="onSubmit"
   >
     <div class="md:flex md:gap-x-2">
       <div class="w-full max-md:mb-3">
         <Field
-          v-model="values.name"
+          v-model="formValues.reservation"
           name="reservation"
           required
           placeholder="Reservation"
@@ -36,7 +46,7 @@ const values = ref({
       </div>
       <div class="w-full max-md:mb-3">
         <Field
-          v-model="values.email"
+          v-model="formValues.email"
           name="email"
           type="email"
           placeholder="E-mail"

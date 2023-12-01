@@ -4,14 +4,13 @@ type AlertInfo = {
   message: string;
 };
 interface Props {
-  backgroundColor: string;
-  textColor: string;
   alertMessage: AlertInfo;
-  formValidationSchema: Object;
-  submitFuntion: () => void;
+  backgroundColor?: string;
+  textColor?: string;
 }
 withDefaults(defineProps<Props>(), {
   backgroundColor: 'white',
+  textColor: 'black',
 });
 </script>
 <template>
@@ -25,10 +24,9 @@ withDefaults(defineProps<Props>(), {
         <h1 class="text-xl m-0 pb-4 font-bold lg:text-2xl">
           {{ $t('home.title') }}
         </h1>
-        <UiHomeForm
-          :submit-function="submitFuntion"
-          :schema="formValidationSchema"
-        />
+
+        <slot name="form" />
+
         <UiAlertMessage
           v-if="alertMessage.type"
           class="pt-3"
@@ -36,15 +34,6 @@ withDefaults(defineProps<Props>(), {
         >
           {{ alertMessage.message }}
         </UiAlertMessage>
-        <!-- <p
-          v-if="alertMessage"
-          class="text-sm mt-3"
-          :class="
-            alertMessage.type === 'error' ? 'text-red-400' : 'text-green-500'
-          "
-        >
-          {{ alertMessage.message }}
-        </p> -->
       </div>
     </article>
   </main>
