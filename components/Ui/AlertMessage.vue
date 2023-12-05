@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AlertTypes } from '../../types/types.d';
+import { AlertTypes } from '../../types/enums';
 
 defineProps<{ type: AlertTypes }>();
 </script>
