@@ -1,4 +1,6 @@
-import { type Response, ErrorCodes } from './../types/types.d';
+import { type Response } from './../types/types.d';
+import { ErrorCodes } from './../types/enums';
+
 import type { DirectusQueryParams } from 'nuxt-directus/dist/runtime/types';
 
 export const useDirectusFetch = () => {
