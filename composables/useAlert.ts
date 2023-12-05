@@ -1,5 +1,6 @@
 import type { PrecheckinStatus } from './../types/precheckin.d';
-import { type Alert, AlertTypes, ReservationStatus } from '../types/types.d';
+import { type Alert } from '../types/types.d';
+import { AlertTypes, ReservationStatus } from '../types/enums';
 
 const DEFAULT_ALERT: Alert = {
   type: AlertTypes.NO_ALERT,
