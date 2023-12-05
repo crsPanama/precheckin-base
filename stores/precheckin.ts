@@ -36,12 +36,36 @@ const DEFAULT_PRECHECKIN_INFO: PrecheckinInfo = {
 export const usePrecheckinStore = defineStore('precheckin', () => {
   const state = ref<PrecheckinInfo>(DEFAULT_PRECHECKIN_INFO);
 
-  const setClientInfo = (values: ClientInfo) => {
-    state.value.client_info = values;
+  const setClientInfo = (ClientInfo: ClientInfo) => {
+    state.value.client_info = {
+      Name: ClientInfo.Name,
+      Licencia: ClientInfo.Licencia,
+      Phone_Number: ClientInfo.Phone_Number,
+      Renters_Email: ClientInfo.Renters_Email,
+    };
   };
 
-  const setReservationInfo = (values: ReservationInfo) => {
-    state.value.reservation = values;
+  const setReservationInfo = (reservationInfo: ReservationInfo) => {
+    state.value.reservation = {
+      id: reservationInfo.id,
+      status: reservationInfo.status,
+      Class: reservationInfo.Class,
+      Res: reservationInfo.Res,
+      Pickup_Date: new Date(reservationInfo.Pickup_Date),
+      Pickup_Time: reservationInfo.Pickup_Time,
+      Due_Date: new Date(reservationInfo.Due_Date),
+      Due_Time: reservationInfo.Due_Time,
+      tipo_pago: reservationInfo.tipo_pago,
+    };
+
+    state.value.reservation.Pickup_Date.setHours(
+      state.value.reservation.Pickup_Time
+    );
+    state.value.reservation.Due_Date.setHours(state.value.reservation.Due_Time);
+  };
+
+  const setEstimatedTotal = (value: number) => {
+    state.value.prices.Est_Total = value;
   };
 
   const resetStore = () => {
@@ -53,5 +77,6 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
     setClientInfo,
     setReservationInfo,
     resetStore,
+    setEstimatedTotal,
   };
 });
