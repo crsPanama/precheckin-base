@@ -1,10 +1,8 @@
 <script setup lang="ts">
-type AlertInfo = {
-  type: string;
-  message: string;
-};
+import type { Alert } from '../../types/types';
+
 interface Props {
-  alertMessage: AlertInfo;
+  alert: Alert;
   backgroundColor?: string;
   textColor?: string;
 }
@@ -27,12 +25,8 @@ withDefaults(defineProps<Props>(), {
 
         <slot name="form" />
 
-        <UiAlertMessage
-          v-if="alertMessage.type"
-          class="pt-3"
-          :type="alertMessage.type"
-        >
-          {{ alertMessage.message }}
+        <UiAlertMessage v-if="alert.type" class="pt-3" :type="alert.type">
+          {{ alert.message }}
         </UiAlertMessage>
       </div>
     </article>
