@@ -1,5 +1,9 @@
 import { usePrecheckinStore } from '../stores/precheckin';
-import type { ClientInfo, ReservationInfo } from '../types/precheckin';
+import type {
+  ClientInfo,
+  EstimatedTotal,
+  ReservationInfo,
+} from '../types/precheckin';
 import { useDirectusFetch } from './useDirectusFetch';
 
 const DB_COLLECTION = 'prechecking';
@@ -13,6 +17,12 @@ export const usePrecheckin = () => {
   const setClientInfo = (clientInfo: ClientInfo) => {
     precheckinStore.setClientInfo(clientInfo);
   };
+  const setReservationInfo = (reservationInfo: ReservationInfo) => {
+    precheckinStore.setReservationInfo(reservationInfo);
+  };
+  const setEstimatedTotal = (estimatedTotal: number) => {
+    precheckinStore.setEstimatedTotal(estimatedTotal);
+  };
 
   const fetchReservation = async (Res: string, RentersEmail: string) => {
     const filters: Pick<ClientInfo, 'Renters_Email'> &
@@ -20,12 +30,11 @@ export const usePrecheckin = () => {
       Res,
       Renters_Email: RentersEmail,
     };
-    const { data, error } = await fetchItems<ClientInfo & ReservationInfo>(
-      DB_COLLECTION,
-      {
-        filter: filters,
-      }
-    );
+    const { data, error } = await fetchItems<
+      ClientInfo & ReservationInfo & EstimatedTotal
+    >(DB_COLLECTION, {
+      filter: filters,
+    });
     return {
       data: data && data[0],
       error,
@@ -35,5 +44,7 @@ export const usePrecheckin = () => {
     state,
     setClientInfo,
     fetchReservation,
+    setReservationInfo,
+    setEstimatedTotal,
   };
 };

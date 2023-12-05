@@ -1,11 +1,11 @@
 <script setup lang="ts">
-type alertType = 'error' | 'alert' | '';
+import { AlertTypes } from '../../types/types.d';
 
-defineProps<{ type: alertType }>();
+defineProps<{ type: AlertTypes }>();
 </script>
 <template>
   <div
-    :class="type === 'error' ? 'text-red-400' : 'text-green-500'"
+    :class="type === AlertTypes.ERROR ? 'text-red-400' : 'text-green-500'"
     v-bind="$attrs"
   >
     <slot />

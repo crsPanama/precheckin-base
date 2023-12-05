@@ -2,7 +2,6 @@
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import type { FormValues } from '../../types/types';
 interface Props {
-  submitFunction: () => void;
   schema: Object;
 }
 
@@ -12,14 +11,8 @@ const emit = defineEmits<{
   (e: 'submit', values: FormValues): void;
 }>();
 
-const formValues = ref<FormValues>({
-  reservation: '',
-  email: '',
-});
-
 const onSubmit = (values: any) => {
-  formValues.value = values;
-  emit('submit', formValues.value);
+  emit('submit', values as FormValues);
 };
 </script>
 <template>
@@ -31,7 +24,6 @@ const onSubmit = (values: any) => {
     <div class="md:flex md:gap-x-2">
       <div class="w-full max-md:mb-3">
         <Field
-          v-model="formValues.reservation"
           name="reservation"
           required
           placeholder="Reservation"
@@ -46,7 +38,6 @@ const onSubmit = (values: any) => {
       </div>
       <div class="w-full max-md:mb-3">
         <Field
-          v-model="formValues.email"
           name="email"
           type="email"
           placeholder="E-mail"

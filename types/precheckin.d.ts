@@ -47,3 +47,5 @@ export interface PricingInfo {
   Total: number;
   Era: number;
 }
+
+export type EstimatedTotal = Pick<PricingInfo, 'Est_Total'>;
