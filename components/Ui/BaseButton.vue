@@ -19,7 +19,7 @@ const textColor = computed(() => {
 </script>
 <template>
   <button
-    :class="`rounded-md shadow-md ${$attrs.class}`"
+    :class="`rounded-md ${$attrs.class}`"
     v-bind="$attrs"
     @click="clickFunciton"
   >
