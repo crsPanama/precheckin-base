@@ -29,3 +29,9 @@ export type Alert = {
   type: AlertTypes;
   message: string;
 };
+
+export enum ProcessRoutes {
+  COVERAGES = 'coverages',
+  EXTRAS = 'extras',
+  CHECKOUT = 'checkout',
+}
