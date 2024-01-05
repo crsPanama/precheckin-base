@@ -19,7 +19,7 @@ withDefaults(defineProps<Props>(), {
       class="mx-4 bg-white rounded p-7 md:p-10 text-center md:flex md:text-left md:py-16 md:max-w-xl md:mx-20 lg:mt-20 lg:mx-0 lg:ml-60"
     >
       <div class="max-md:max-w-[270px] mx-auto">
-        <h1 class="text-base md:text-xl m-0 pb-4 font-bold lg:text-2xl">
+        <h1 class="text-xl m-0 pb-4 font-bold lg:text-2xl">
           {{ $t('home.title') }}
         </h1>
 

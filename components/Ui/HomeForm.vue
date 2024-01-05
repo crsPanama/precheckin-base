@@ -56,8 +56,7 @@ const onSubmit = (values: any) => {
       <UiBaseButton
         type="submit"
         width="100%"
-        class="p-2"
-        background-color="#047EFF"
+        class="p-2 bg-[#047EFF]"
         light-text
       >
         {{ $t('home.btnText') }}
