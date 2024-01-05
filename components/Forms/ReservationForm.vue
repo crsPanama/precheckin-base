@@ -6,6 +6,9 @@ const { params } = useRoute();
 withDefaults(defineProps<{ primaryColor: string }>(), {
   primaryColor: 'black',
 });
+
+defineEmits(['cancel']);
+
 const { setFieldValue, meta, useFieldModel, handleSubmit, errors } = useForm({
   validationSchema: clientInfo,
 });
@@ -21,14 +24,12 @@ const onSubmit = handleSubmit(async (values) => {
   await navigateTo(`${params.id}/coverages`);
 });
 
-onMounted(() => {
-  if (state.value.client_info) {
-    //Automatically sets input values with fetched data values.
-    for (const [key, value] of Object.entries(state.value.client_info)) {
-      setFieldValue(key as any, value);
-    }
+if (state.value.client_info) {
+  //Automatically sets input values with fetched data values.
+  for (const [key, value] of Object.entries(state.value.client_info)) {
+    setFieldValue(key, value);
   }
-});
+}
 </script>
 <template>
   <form
@@ -85,18 +86,24 @@ onMounted(() => {
     </div>
 
     <section class="flex justify-center gap-x-6 w-full py-2">
-      <button
-        class="border-[1px] border-gray-300 rounded-md p-3 w-1/2 hover:text-white hover:bg-red-500 transition-colors duration-150"
+      <UiBaseButton
+        type="button"
+        data-test="cancel-btn"
+        width="50%"
+        class="border-[1px] p-3 border-gray-300 rounded-mdhover:text-white hover:bg-red-500 transition-colors duration-150 hover:text-white"
+        :click-funciton="() => $emit('cancel', true)"
       >
         Cancel
-      </button>
-      <button
+      </UiBaseButton>
+      <UiBaseButton
+        width="50%"
+        light-text
+        class="border-[1px] border-gray-300 p-3 bg-primary disabled:bg-primary/80 disabled:cursor-not-allowed"
         type="submit"
-        class="bg-primary rounded-md p-3 transition-colors duration-300 text-white w-1/2 text-center cursor-pointer disabled:bg-primary/80 disabled:cursor-not-allowed"
         :disabled="!meta.valid"
       >
         Next
-      </button>
+      </UiBaseButton>
     </section>
   </form>
 </template>
