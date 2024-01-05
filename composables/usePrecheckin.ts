@@ -40,11 +40,13 @@ export const usePrecheckin = () => {
       error,
     };
   };
+
   return {
     state,
     setClientInfo,
     fetchReservation,
     setReservationInfo,
     setEstimatedTotal,
+    getRebuildedDate: precheckinStore.getRebuildedDate(),
   };
 };

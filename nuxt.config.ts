@@ -8,8 +8,8 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     'nuxt-directus',
     '@pinia/nuxt',
+    '@nuxt/test-utils/module',
     '@nuxtjs/i18n',
-    '@formkit/nuxt',
   ],
   i18n: {
     vueI18n: './i18n.config.ts',
