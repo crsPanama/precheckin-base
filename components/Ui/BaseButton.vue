@@ -19,7 +19,7 @@ const textColor = computed(() => {
 </script>
 <template>
   <button
-    :class="`rounded-md ${$attrs.class}`"
+    :class="`rounded-md  transition-colors duration-300 ${$attrs.class}`"
     v-bind="$attrs"
     @click="clickFunciton"
   >
@@ -31,7 +31,6 @@ const textColor = computed(() => {
 button {
   width: v-bind(width);
   height: v-bind(height);
-  background-color: v-bind(backgroundColor);
   color: v-bind(textColor);
 }
 </style>
