@@ -3,6 +3,7 @@ import type {
   PrecheckinInfo,
   ReservationInfo,
 } from '../types/precheckin';
+import { parseReservationHours } from '../utils/parseReservationHours';
 
 const DEFAULT_PRECHECKIN_INFO: PrecheckinInfo = {
   reservation: {
@@ -35,6 +36,27 @@ const DEFAULT_PRECHECKIN_INFO: PrecheckinInfo = {
 
 export const usePrecheckinStore = defineStore('precheckin', () => {
   const state = ref<PrecheckinInfo>(DEFAULT_PRECHECKIN_INFO);
+
+  const getRebuildedDate = () => {
+    const { reservation } = state.value;
+
+    const parsedPickupTime = parseReservationHours(reservation.Pickup_Time);
+    const parsedDueTime = parseReservationHours(reservation.Due_Time);
+
+    reservation.Pickup_Date.setHours(
+      <number>parsedPickupTime.hours,
+      <number>parsedPickupTime.minutes
+    );
+    reservation.Due_Date.setHours(
+      <number>parsedDueTime.hours,
+      <number>parsedDueTime.minutes
+    );
+
+    return {
+      pickupDate: fechaFormat(reservation.Pickup_Date, true),
+      dueDate: fechaFormat(reservation.Due_Date, true),
+    };
+  };
 
   const setClientInfo = (ClientInfo: ClientInfo) => {
     state.value.client_info = {
@@ -78,5 +100,6 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
     setReservationInfo,
     resetStore,
     setEstimatedTotal,
+    getRebuildedDate,
   };
 });
