@@ -2,7 +2,7 @@ import { type Response, ErrorCodes } from './../types/types.d';
 import type { DirectusQueryParams } from 'nuxt-directus/dist/runtime/types';
 
 export const useDirectusFetch = () => {
-  const { getItems } = useDirectusItems();
+  const { getItems, updateItem: update } = useDirectusItems();
 
   //Wrapper for useDirectusItems getItems functions, adds an error handling in case data is empty
   const fetchItems = async <T>(
@@ -23,7 +23,20 @@ export const useDirectusFetch = () => {
     }
   };
 
+  const updateItem = async <T>(collection: string, item: {}, id: string) => {
+    try {
+      await update<T>({
+        collection,
+        id,
+        item,
+      });
+    } catch (error) {
+      throw new Error(`${Error} updating`);
+    }
+  };
+
   return {
     fetchItems,
+    updateItem,
   };
 };
