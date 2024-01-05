@@ -1,5 +1,5 @@
 import type { ReservationInfo } from '../types/precheckin';
-import { ReservationStatus } from '../types/types.d';
+import { ReservationStatus } from '../types/enums';
 
 type CancelationStatus = {
   warning: boolean;
