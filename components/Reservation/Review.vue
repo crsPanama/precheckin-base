@@ -8,7 +8,8 @@ const { state } = usePrecheckin();
   >
     <div class="bg-primary rounded-t-md py-4 px-3 text-white">
       <h2 class="text-xl">
-        Hyundai Tucson <span class="text-gray-300">or Similar</span>
+        {{ selectedCar.marca }} {{ selectedCar.modelo }}
+        <span class="text-gray-300">or Similar</span>
       </h2>
     </div>
     <section class="w-4/5 mx-auto max-w-md">

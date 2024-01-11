@@ -5,12 +5,13 @@ import type {
   ReservationInfo,
 } from '../types/precheckin';
 import { useDirectusFetch } from './useDirectusFetch';
+import type { Sucursal } from 'crs_layer/types/sucursal';
+import type { Car } from 'crs_layer/types/car';
 
 const DB_COLLECTION = 'prechecking';
 
 export const usePrecheckin = () => {
   const { fetchItems } = useDirectusFetch();
-
   const precheckinStore = usePrecheckinStore();
   const { state } = storeToRefs(precheckinStore);
 
@@ -41,12 +42,52 @@ export const usePrecheckin = () => {
     };
   };
 
+  const fetchLocations = async (
+    LOCATION_COLLECTION: string,
+    sucursal_retiro: string,
+    sucursal_retorno: string
+  ) => {
+    const { data, error } = await fetchItems<Sucursal>(LOCATION_COLLECTION, {
+      filter: {
+        LocationCode: {
+          _in: [sucursal_retiro, sucursal_retorno],
+        },
+      },
+    });
+    const pickupLocation =
+      data![0].LocationCode === sucursal_retiro ? data![0] : data![1];
+    const duebackLocation =
+      data![0].LocationCode !== sucursal_retiro ? data![0] : data![1];
+    return {
+      data: {
+        pickupLocation,
+        duebackLocation,
+      },
+      error,
+    };
+  };
+
+  const fetchCarInfo = async (carClass: string) => {
+    const { data } = await fetchItems<Car>('flota', {
+      filter: {
+        clasificacion: {
+          _eq: carClass,
+        },
+      },
+    });
+    return {
+      car: data![0],
+    };
+  };
+
   return {
     state,
     setClientInfo,
     fetchReservation,
     setReservationInfo,
     setEstimatedTotal,
+    fetchLocations,
+    fetchCarInfo,
     getRebuildedDate: precheckinStore.getRebuildedDate(),
   };
 };

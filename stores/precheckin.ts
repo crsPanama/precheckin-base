@@ -13,8 +13,10 @@ const DEFAULT_PRECHECKIN_INFO: PrecheckinInfo = {
     Res: '',
     Pickup_Date: new Date(),
     Pickup_Time: 0,
+    Pickup_Location: '',
     Due_Date: new Date(),
     Due_Time: 0,
+    Due_Back_Location: '',
     tipo_pago: 'tarjeta',
   },
   client_info: {
@@ -74,8 +76,10 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
       Class: reservationInfo.Class,
       Res: reservationInfo.Res,
       Pickup_Date: new Date(reservationInfo.Pickup_Date),
+      Pickup_Location: reservationInfo.Pickup_Location,
       Pickup_Time: reservationInfo.Pickup_Time,
       Due_Date: new Date(reservationInfo.Due_Date),
+      Due_Back_Location: reservationInfo.Due_Back_Location,
       Due_Time: reservationInfo.Due_Time,
       tipo_pago: reservationInfo.tipo_pago,
     };
