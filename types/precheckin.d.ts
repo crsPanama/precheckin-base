@@ -18,10 +18,12 @@ export interface ReservationInfo {
   Class: string;
   Res: string;
   Pickup_Date: Date;
+  Pickup_Location: string;
   Pickup_Time: number;
   tipo_pago: PaymentType;
   Due_Date: Date;
   Due_Time: number;
+  Due_Back_Location: string;
 }
 
 export interface ReservationLocationInfo {
