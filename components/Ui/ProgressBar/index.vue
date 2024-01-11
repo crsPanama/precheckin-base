@@ -40,7 +40,7 @@ watch(
 watch(
   () => props.route,
   () => {
-    checkRoute();
+        checkRoute();
   }
 );
 </script>
