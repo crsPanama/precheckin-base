@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { getRebuildedDate } = usePrecheckin();
+const { pickUpLocation, dueBackLocation } = useLocation();
 </script>
 <template>
   <div
@@ -7,12 +8,12 @@ const { getRebuildedDate } = usePrecheckin();
   >
     <UiReservationCardLocationInfoItem
       title="PICK UP"
-      location="Tocumen (Aeropuerto Internacional)"
+      :location="pickUpLocation.name"
       :date="getRebuildedDate.pickupDate"
     />
     <UiReservationCardLocationInfoItem
       title="RETURN"
-      location="Tocumen (Aeropuerto Internacional)"
+      :location="dueBackLocation.name"
       :date="getRebuildedDate.dueDate"
     />
   </div>
