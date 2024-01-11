@@ -3263,9 +3263,9 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     which "^2.0.1"
 
 crs_layer@^1.9.8:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/crs_layer/-/crs_layer-1.11.0.tgz#f2d80712927b96576259f74aa02313d074a817db"
-  integrity sha512-sNt00Jl5MYMqeooJ+TlIdLV5qkTBFKJOtdtMGlZZJXM4gGgOtXrhRCrN0SWVNwcYIiKOEx7hWbQ43YJR5M7s9g==
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/crs_layer/-/crs_layer-1.11.1.tgz#b284111916fca6c3f550b2befc77f905e437c53e"
+  integrity sha512-UgZ8mzEeLCyIlrBvGAsZfRj83K7tAVyBrVSIJMslz0lJt6gDHKKE9AJt5NNWp0U24o2U74gpUwqHqehj6RuxLw==
   dependencies:
     "@paypal/paypal-js" "^7.0.0"
     "@pinia/nuxt" "^0.4.11"
