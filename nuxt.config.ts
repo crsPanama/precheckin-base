@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  extends: ['crs_layer'],
+  extends: ['../../../../laragon/www/crs-layer'],
   modules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',
