@@ -3,6 +3,7 @@ import clientInfo from '../../schemas/clientInfo';
 import type { ClientInfo } from '../../types/precheckin';
 const { state, setClientInfo } = usePrecheckin();
 const { params } = useRoute();
+
 withDefaults(defineProps<{ primaryColor: string }>(), {
   primaryColor: 'black',
 });
@@ -33,7 +34,7 @@ if (state.value.client_info) {
 </script>
 <template>
   <form
-    class="flex flex-col gap-y-4 md:gap-x-3 w-5/6 mx-auto py-5"
+    class="flex flex-col gap-y-4 md:gap-x-3 w-5/6 mx-auto py-"
     @submit="onSubmit"
   >
     <div>
@@ -43,7 +44,6 @@ if (state.value.client_info) {
       <UiCustomInput
         v-model="Name"
         placeholder="Name"
-        class="p-2 w-full"
         :focus-color="primaryColor"
         :error-message="errors.Name"
       />
@@ -55,7 +55,6 @@ if (state.value.client_info) {
       <UiCustomInput
         v-model="Renters_Email"
         placeholder="E-mail"
-        class="p-2 w-full"
         :focus-color="primaryColor"
         :error-message="errors.Renters_Email && 'Add a valid E-mail'"
       />
@@ -67,7 +66,6 @@ if (state.value.client_info) {
       <UiCustomInput
         v-model="Licencia"
         placeholder="Licencia"
-        class="p-2 w-full"
         :focus-color="primaryColor"
         :error-message="errors.Licencia && 'This field is required'"
       />
