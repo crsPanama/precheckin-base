@@ -3,7 +3,6 @@ interface Props {
   clickFunciton?: () => void;
   width?: string;
   height?: string;
-  backgroundColor: string;
   lightText: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
