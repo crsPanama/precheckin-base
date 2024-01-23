@@ -18,7 +18,7 @@ defineProps<{ spinnerColor: string }>();
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 200;
   background-color: rgba(0, 0, 0, 0.5); /* Add transparency for background */
 }
 

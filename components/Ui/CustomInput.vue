@@ -18,7 +18,7 @@ defineEmits(['update:modelValue']);
 <template>
   <input
     type="text"
-    class="rounded-md border-[1px]"
+    class="rounded-md border-[1px] p-2 w-full block mt-2"
     :class="errorMessage ? 'border-red-500' : 'valid-border-color'"
     v-bind="$attrs"
     :value="modelValue"
