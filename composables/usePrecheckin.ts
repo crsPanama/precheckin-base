@@ -25,6 +25,14 @@ export const usePrecheckin = () => {
     precheckinStore.setEstimatedTotal(estimatedTotal);
   };
 
+  const setDropoff = (dropOff: number = 0) => {
+    precheckinStore.setDropOff(dropOff);
+  };
+
+  const setEra = (era: number) => {
+    precheckinStore.setEra(era);
+  };
+
   const fetchReservation = async (Res: string, RentersEmail: string) => {
     const filters: Pick<ClientInfo, 'Renters_Email'> &
       Pick<ReservationInfo, 'Res'> = {
@@ -50,10 +58,20 @@ export const usePrecheckin = () => {
     const { data, error } = await fetchItems<Sucursal>(LOCATION_COLLECTION, {
       filter: {
         LocationCode: {
+          //Filter: find locations that matches locationCode name.
           _in: [sucursal_retiro, sucursal_retorno],
         },
       },
     });
+    //If locations are equal, backend only return one matching object. Set both location to the returning object
+    if (data && data?.length === 0) {
+      return {
+        data: {
+          pickupLocation: data[0],
+          duebackLocation: data[0],
+        },
+      };
+    }
     const pickupLocation =
       data![0].LocationCode === sucursal_retiro ? data![0] : data![1];
     const duebackLocation =
@@ -83,11 +101,13 @@ export const usePrecheckin = () => {
   return {
     state,
     setClientInfo,
+    getTotalDays: precheckinStore.getTotalDays,
     fetchReservation,
     setReservationInfo,
     setEstimatedTotal,
+    setDropoff,
     fetchLocations,
     fetchCarInfo,
-    getRebuildedDate: precheckinStore.getRebuildedDate(),
+    setEra,
   };
 };
