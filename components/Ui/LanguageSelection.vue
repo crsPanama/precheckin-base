@@ -4,7 +4,6 @@ import { type Languages } from 'crs_layer/types/languages';
 const activeLanguage = ref<Languages>('en-US');
 const { setLocale, locale } = useI18n();
 const { setSelectedLanguage, selectedLanguage } = useLanguages();
-console.log(locale);
 const changeLanguage = (language: Languages) => {
   activeLanguage.value = language;
 
