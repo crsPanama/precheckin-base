@@ -3,7 +3,7 @@ import type {
   PrecheckinInfo,
   ReservationInfo,
 } from '../types/precheckin';
-import { parseReservationHours } from '../utils/parseReservationHours';
+import { rebuildReservationDate } from '../utils/rebuildReservationDate';
 
 const DEFAULT_PRECHECKIN_INFO: PrecheckinInfo = {
   reservation: {
@@ -35,30 +35,35 @@ const DEFAULT_PRECHECKIN_INFO: PrecheckinInfo = {
     Era: 3.99,
   },
 };
+const TAX_VALUE = 7;
 
 export const usePrecheckinStore = defineStore('precheckin', () => {
+  const { selectedCoverage } = useCoverages();
+  const { selectedCar } = useCar();
+  const { selectedExtras } = useExtras();
+
   const state = ref<PrecheckinInfo>(DEFAULT_PRECHECKIN_INFO);
 
-  const getRebuildedDate = () => {
-    const { reservation } = state.value;
-
-    const parsedPickupTime = parseReservationHours(reservation.Pickup_Time);
-    const parsedDueTime = parseReservationHours(reservation.Due_Time);
-
-    reservation.Pickup_Date.setHours(
-      <number>parsedPickupTime.hours,
-      <number>parsedPickupTime.minutes
-    );
-    reservation.Due_Date.setHours(
-      <number>parsedDueTime.hours,
-      <number>parsedDueTime.minutes
+  const getTotalDays = () => {
+    const totalDays = differenceBetweenDays(
+      state.value.reservation.Pickup_Date,
+      state.value.reservation.Due_Date
     );
 
-    return {
-      pickupDate: fechaFormat(reservation.Pickup_Date, true),
-      dueDate: fechaFormat(reservation.Due_Date, true),
-    };
+    return totalDays;
   };
+
+  const getCarPrice = computed(() => {
+    const { pickUpLocation } = useLocation();
+    //As car price in this scenario comes already calculated, we need to calculate de airport fee before calculating total SAF
+    const carPriceTax = pickUpLocation.impuesto
+      ? state.value.prices.Est_Total * (pickUpLocation.impuesto / 100)
+      : 0;
+    return {
+      carPriceTax,
+      carPrice: state.value.prices.Est_Total,
+    };
+  });
 
   const setClientInfo = (ClientInfo: ClientInfo) => {
     state.value.client_info = {
@@ -75,24 +80,72 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
       status: reservationInfo.status,
       Class: reservationInfo.Class,
       Res: reservationInfo.Res,
-      Pickup_Date: new Date(reservationInfo.Pickup_Date),
+      Pickup_Date: rebuildReservationDate(
+        new Date(reservationInfo.Pickup_Date),
+        reservationInfo.Pickup_Time
+      ),
       Pickup_Location: reservationInfo.Pickup_Location,
       Pickup_Time: reservationInfo.Pickup_Time,
-      Due_Date: new Date(reservationInfo.Due_Date),
+      Due_Date: rebuildReservationDate(
+        new Date(reservationInfo.Due_Date),
+        reservationInfo.Due_Time
+      ),
       Due_Back_Location: reservationInfo.Due_Back_Location,
       Due_Time: reservationInfo.Due_Time,
       tipo_pago: reservationInfo.tipo_pago,
     };
+  };
 
-    state.value.reservation.Pickup_Date.setHours(
-      state.value.reservation.Pickup_Time
-    );
-    state.value.reservation.Due_Date.setHours(state.value.reservation.Due_Time);
+  const setEra = (era: number) => {
+    state.value.prices.Era = era;
   };
 
   const setEstimatedTotal = (value: number) => {
     state.value.prices.Est_Total = value;
   };
+
+  const setDropOff = (dropoff: number) => {
+    state.value.prices.dropoff = dropoff;
+  };
+
+  const calculatePrices = computed(() => {
+    const { pickUpLocation } = useLocation();
+    const totalDias = getTotalDays();
+    const carPrices = getCarPrice.value;
+    const coveragePrice = precioCobertura(
+      selectedCar.value.tipo,
+      selectedCoverage.value.precio,
+      selectedCoverage.value.precio_2
+    );
+    const extras =
+      selectedExtras.value.length > 0 ? extrasSumados(selectedExtras.value) : 0;
+    const airportFee =
+      impuestoAeropuerto(
+        selectedExtras.value,
+        totalDias,
+        pickUpLocation.impuesto,
+        state.value.prices.dropoff,
+        [0]
+      ) + carPrices.carPriceTax;
+
+    const subtotal =
+      subTotal(
+        [state.value.prices.Era, coveragePrice, extras],
+        state.value.prices.dropoff,
+        totalDias
+      ) + Number(carPrices.carPrice);
+    const tax = impuesto(subtotal, airportFee, TAX_VALUE);
+    const total = subtotal + airportFee + tax;
+
+    return {
+      airportFee: airportFee.toFixed(2),
+      tax: tax.toFixed(2),
+      subtotal: subtotal.toFixed(2),
+      total: total.toFixed(2),
+      coveragePrice: coveragePrice * totalDias,
+      era: state.value.prices.Era * totalDias,
+    };
+  });
 
   const resetStore = () => {
     state.value = DEFAULT_PRECHECKIN_INFO;
@@ -103,7 +156,10 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
     setClientInfo,
     setReservationInfo,
     resetStore,
+    setDropOff,
+    getTotalDays,
+    setEra,
+    calculatePrices,
     setEstimatedTotal,
-    getRebuildedDate,
   };
 });
