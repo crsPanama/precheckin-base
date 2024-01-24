@@ -64,7 +64,11 @@ const handlePayment = async (cardValues: Card) => {
           @submit-payment="handlePayment"
         />
         <!-- TODO: Handle error message in case of payment Error -->
-        <p v-if="paymentError">{{ paymentErrorMessage }}</p>
+        <Transition>
+          <p v-if="paymentError" class="py-3 text-center text-red-500">
+            {{ paymentErrorMessage }}
+          </p>
+        </Transition>
       </div>
 
       <div>
