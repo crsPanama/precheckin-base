@@ -2,6 +2,7 @@ import type {
   ClientInfo,
   PrecheckinInfo,
   ReservationInfo,
+  ReservationUpdateItems,
 } from '../types/precheckin';
 import { rebuildReservationDate } from '../utils/rebuildReservationDate';
 
@@ -52,6 +53,25 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
 
     return totalDays;
   };
+
+  const getItemsToUpdate = computed(
+    (): Omit<ReservationUpdateItems, 'status' | 'tipo_pago'> => {
+      return {
+        ...state.value.prices,
+        ...state.value.client_info,
+        id: state.value.reservation.id,
+        Modelo_Auto: `${selectedCar.value.marca} ${selectedCar.value.modelo}`,
+        nombre_cobertura: selectedCoverage.value.nombre,
+        precio_cobertura: precioCobertura(
+          selectedCar.value.tipo,
+          selectedCoverage.value.precio,
+          selectedCoverage.value.precio_2
+        ),
+        Coberturas: selectedCoverage.value,
+        Extras: selectedExtras.value,
+      };
+    }
+  );
 
   const getCarPrice = computed(() => {
     const { pickUpLocation } = useLocation();
@@ -108,6 +128,21 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
     state.value.prices.dropoff = dropoff;
   };
 
+  const setPrices = (
+    airportFee: string,
+    tax: string,
+    subtotal: string,
+    total: string
+  ) => {
+    state.value.prices = {
+      ...state.value.prices,
+      airport_fee: Number(airportFee),
+      ITBMS: Number(tax),
+      subtotal: Number(subtotal),
+      Total: Number(total),
+    };
+  };
+
   const calculatePrices = computed(() => {
     const { pickUpLocation } = useLocation();
     const totalDias = getTotalDays();
@@ -153,12 +188,14 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
 
   return {
     state,
+    setPrices,
     setClientInfo,
     setReservationInfo,
     resetStore,
     setDropOff,
     getTotalDays,
     setEra,
+    getItemsToUpdate,
     calculatePrices,
     setEstimatedTotal,
   };
