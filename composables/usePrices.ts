@@ -7,7 +7,17 @@ export const usePrices = () => {
     return precheckinStore.calculatePrices;
   });
 
+  const setPrices = (
+    airportFee: string,
+    tax: string,
+    total: string,
+    subtotal: string
+  ) => {
+    precheckinStore.setPrices(airportFee, tax, subtotal, total);
+  };
+
   return {
     calcuatePrices,
+    setPrices,
   };
 };
