@@ -15,6 +15,10 @@ export const usePrecheckin = () => {
   const precheckinStore = usePrecheckinStore();
   const { state } = storeToRefs(precheckinStore);
 
+  const getReservationUpdateItems = computed(() => {
+    return precheckinStore.getItemsToUpdate;
+  });
+
   const setClientInfo = (clientInfo: ClientInfo) => {
     precheckinStore.setClientInfo(clientInfo);
   };
@@ -103,6 +107,7 @@ export const usePrecheckin = () => {
     setClientInfo,
     getTotalDays: precheckinStore.getTotalDays,
     fetchReservation,
+    getReservationUpdateItems,
     setReservationInfo,
     setEstimatedTotal,
     setDropoff,
