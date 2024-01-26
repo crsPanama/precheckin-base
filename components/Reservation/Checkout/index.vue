@@ -1,59 +1,62 @@
 <script setup lang="ts">
 import type { Card } from 'crs_layer/types/card';
+import type { PaypalInfo } from 'crs_layer/types/paypalInfo';
+
 interface Props {
   primaryColor: string;
   paymentSecurityKey: string;
+  paypalSecurityKey: string;
+  paypalInfo: Pick<PaypalInfo, 'custom_id' | 'soft_descriptor'>;
   paymentUrl: string;
   paymentExtraParams: {};
 }
 const props = defineProps<Props>();
-const { state } = usePrecheckin();
+
+const { state, getReservationUpdateItems } = usePrecheckin();
+const { updateReservationData } = useReservation('prechecking');
 const {
-  card,
-  paymentProcess,
-  paymentFullfiled,
-  paymentError,
-  isPaymentProcessing,
-  setPaymentErrorMessage,
-  paymentErrorMessage,
-} = useCardPayment(props.paymentSecurityKey, props.paymentUrl);
+  processCardPayment,
+  cardPaymentErrorMessage,
+  cardPaymentFullfiled,
+  isCardPaymentProcessing,
+  paypalPaymentFullfiled,
+} = usePayment(
+  props.paypalInfo,
+  props.paymentSecurityKey,
+  props.paymentUrl,
+  props.paypalSecurityKey
+);
 
 const handlePayment = async (cardValues: Card) => {
-  card.value = {
-    ...cardValues,
-  };
   const params = {
     ...props.paymentExtraParams,
     order_id: state.value.reservation.Res,
     first_name: state.value.client_info.Name,
-    amount: state.value.prices.Est_Total,
+    amount: state.value.prices.Total,
     address1: state.value.reservation.Pickup_Location,
   };
 
-  await paymentProcess(params);
+  await processCardPayment(cardValues, params);
 
-  //Todo: Update reservation on backend after payment is processed correctly
-  if (paymentFullfiled.value) {
-    console.log(params);
-    return;
-  }
-  if (paymentError.value) {
-    if (paymentError.value.paymentDeclined) {
-      setPaymentErrorMessage('Payment declined');
-    }
-    if (paymentError.value.paymentServerError) {
-      setPaymentErrorMessage('Card data is not valid, check your information');
-    }
-    return setTimeout(() => {
-      setPaymentErrorMessage('');
-    }, 5000);
+  if (cardPaymentFullfiled) {
+    updateReservationData({
+      ...getReservationUpdateItems.value,
+      status: 'Cancelado',
+      tipo_pago: 'tarjeta',
+    });
+    setTimeout(async () => {
+      cardPaymentFullfiled.value = false;
+      await navigateTo('success');
+    }, 4000);
   }
 };
 </script>
 <template>
-  <section class="mx-auto bg-white rounded-md p-4 shadow-md">
-    <UiLoadingScreen v-if="isPaymentProcessing" :spinner-color="primaryColor" />
-    <!-- <UiModalPaymentResponse /> -->
+  <section class="mx-auto bg-white rounded-md p-4 shadow-md relative">
+    <UiLoadingScreen
+      v-if="isCardPaymentProcessing"
+      :spinner-color="primaryColor"
+    />
     <div class="w-11/12 mx-auto">
       <h2 class="font-medium text-xl md:text-2xl">Checkout</h2>
       <!-- CARD PAYMENT -->
@@ -63,16 +66,26 @@ const handlePayment = async (cardValues: Card) => {
           :primary-color="primaryColor"
           @submit-payment="handlePayment"
         />
-        <!-- TODO: Handle error message in case of payment Error -->
         <Transition>
-          <p v-if="paymentError" class="py-3 text-center text-red-500">
-            {{ paymentErrorMessage }}
+          <p
+            v-if="cardPaymentErrorMessage"
+            class="py-3 text-center text-red-500"
+          >
+            {{ cardPaymentErrorMessage }}
           </p>
         </Transition>
       </div>
-
+      <div class="fixed left-0 z-50">
+        <UiModalPaymentSuccess
+          v-if="cardPaymentFullfiled || paypalPaymentFullfiled"
+        />
+      </div>
       <div>
         <h3 class="border-b-[1px] border-gray-400 my-6 pb-1">Otros</h3>
+
+        <div class="py-5 relative z-40">
+          <div id="paypal-button"></div>
+        </div>
       </div>
     </div>
   </section>
