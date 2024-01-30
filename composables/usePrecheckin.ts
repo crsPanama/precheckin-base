@@ -71,8 +71,10 @@ export const usePrecheckin = () => {
         },
       },
     });
+    console.log(data);
+
     //If locations are equal, backend only return one matching object. Set both location to the returning object
-    if (data && data?.length === 0) {
+    if (data && data?.length === 1) {
       return {
         data: {
           pickupLocation: data[0],
