@@ -37,6 +37,10 @@ export const usePrecheckin = () => {
     precheckinStore.setEra(era);
   };
 
+  const resetStore = () => {
+    precheckinStore.resetStore();
+  };
+
   const fetchReservation = async (Res: string, RentersEmail: string) => {
     const filters: Pick<ClientInfo, 'Renters_Email'> &
       Pick<ReservationInfo, 'Res'> = {
@@ -107,6 +111,7 @@ export const usePrecheckin = () => {
     setClientInfo,
     getTotalDays: precheckinStore.getTotalDays,
     fetchReservation,
+    resetStore,
     getReservationUpdateItems,
     setReservationInfo,
     setEstimatedTotal,

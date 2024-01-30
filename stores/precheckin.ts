@@ -17,6 +17,7 @@ const DEFAULT_PRECHECKIN_INFO: PrecheckinInfo = {
     Pickup_Location: '',
     Due_Date: new Date(),
     Due_Time: 0,
+    marca: '',
     Due_Back_Location: '',
     tipo_pago: 'tarjeta',
   },
@@ -86,33 +87,20 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
   });
 
   const setClientInfo = (ClientInfo: ClientInfo) => {
-    state.value.client_info = {
-      Name: ClientInfo.Name,
-      Licencia: ClientInfo.Licencia,
-      Phone_Number: ClientInfo.Phone_Number,
-      Renters_Email: ClientInfo.Renters_Email,
-    };
+    state.value.client_info = ClientInfo;
   };
 
   const setReservationInfo = (reservationInfo: ReservationInfo) => {
     state.value.reservation = {
-      id: reservationInfo.id,
-      status: reservationInfo.status,
-      Class: reservationInfo.Class,
-      Res: reservationInfo.Res,
+      ...reservationInfo,
       Pickup_Date: rebuildReservationDate(
         new Date(reservationInfo.Pickup_Date),
         reservationInfo.Pickup_Time
       ),
-      Pickup_Location: reservationInfo.Pickup_Location,
-      Pickup_Time: reservationInfo.Pickup_Time,
       Due_Date: rebuildReservationDate(
         new Date(reservationInfo.Due_Date),
         reservationInfo.Due_Time
       ),
-      Due_Back_Location: reservationInfo.Due_Back_Location,
-      Due_Time: reservationInfo.Due_Time,
-      tipo_pago: reservationInfo.tipo_pago,
     };
   };
 
