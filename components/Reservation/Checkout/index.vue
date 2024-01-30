@@ -41,7 +41,7 @@ const handlePayment = async (cardValues: Card) => {
   if (cardPaymentFullfiled) {
     updateReservationData({
       ...getReservationUpdateItems.value,
-      status: 'Cancelado',
+      status: 'Prechecking Pagado',
       tipo_pago: 'tarjeta',
     });
     setTimeout(async () => {
