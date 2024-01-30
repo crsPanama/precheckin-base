@@ -9,6 +9,8 @@ export type PrecheckinStatus =
   | 'Prechecking Pagado'
   | 'Cancelado';
 
+export type Brands = 'Thrifty' | 'Hertz';
+
 export interface PrecheckinInfo {
   reservation: ReservationInfo;
   client_info: ClientInfo;
@@ -26,6 +28,7 @@ export interface ReservationInfo {
   tipo_pago: PaymentType;
   Due_Date: Date;
   Due_Time: number;
+  marca: Brands | '';
   Due_Back_Location: string;
 }
 
