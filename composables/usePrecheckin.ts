@@ -13,10 +13,10 @@ const DB_COLLECTION = 'prechecking';
 export const usePrecheckin = () => {
   const { fetchItems } = useDirectusFetch();
   const precheckinStore = usePrecheckinStore();
-  const { state } = storeToRefs(precheckinStore);
+  const { state, getItemsToUpdate } = storeToRefs(precheckinStore);
 
   const getReservationUpdateItems = computed(() => {
-    return precheckinStore.getItemsToUpdate;
+    return getItemsToUpdate.value;
   });
 
   const setClientInfo = (clientInfo: ClientInfo) => {
