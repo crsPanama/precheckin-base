@@ -39,7 +39,7 @@ const handlePayment = async (cardValues: Card) => {
   await processCardPayment(cardValues, params);
 
   if (cardPaymentFullfiled) {
-    updateReservationData({
+    await updateReservationData({
       ...getReservationUpdateItems.value,
       status: 'Prechecking Pagado',
       tipo_pago: 'tarjeta',

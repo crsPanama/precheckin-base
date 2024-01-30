@@ -1,3 +1,4 @@
+import { Reservation } from './../.nuxt/components.d';
 import type {
   ClientInfo,
   PrecheckinInfo,
@@ -86,20 +87,38 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
     };
   });
 
-  const setClientInfo = (ClientInfo: ClientInfo) => {
-    state.value.client_info = ClientInfo;
+  /* 
+    Not spreading reservationData param because it contains the full reservation data item, setters function
+    grabs the values that the store property should get filled with
+  */
+  const setClientInfo = (reservationData: ClientInfo) => {
+    state.value.client_info = {
+      Licencia: reservationData.Licencia,
+      Name: reservationData.Name,
+      Phone_Number: reservationData.Phone_Number,
+      Renters_Email: reservationData.Renters_Email,
+    };
   };
 
-  const setReservationInfo = (reservationInfo: ReservationInfo) => {
+  const setReservationInfo = (reservationData: ReservationInfo) => {
     state.value.reservation = {
-      ...reservationInfo,
+      Class: reservationData.Class,
+      Due_Back_Location: reservationData.Due_Back_Location,
+      Pickup_Location: reservationData.Pickup_Location,
+      id: reservationData.id,
+      status: reservationData.status,
+      Pickup_Time: reservationData.Pickup_Time,
+      Res: reservationData.Res,
+      Due_Time: reservationData.Due_Time,
+      marca: reservationData.marca,
+      tipo_pago: reservationData.tipo_pago,
       Pickup_Date: rebuildReservationDate(
-        new Date(reservationInfo.Pickup_Date),
-        reservationInfo.Pickup_Time
+        new Date(reservationData.Pickup_Date),
+        reservationData.Pickup_Time
       ),
       Due_Date: rebuildReservationDate(
-        new Date(reservationInfo.Due_Date),
-        reservationInfo.Due_Time
+        new Date(reservationData.Due_Date),
+        reservationData.Due_Time
       ),
     };
   };
