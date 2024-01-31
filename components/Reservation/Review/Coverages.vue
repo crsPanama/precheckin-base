@@ -5,7 +5,9 @@ const { calcuatePrices } = usePrices();
 const { state } = usePrecheckin();
 </script>
 <template>
-  <UiReservationCardChargeDetailContainer title="Coverages">
+  <UiReservationCardChargeDetailContainer
+    :title="$t('reservationBill.coverages')"
+  >
     <template #charge-item>
       <Transition>
         <UiReservationCardChargeDetailItem
@@ -19,7 +21,7 @@ const { state } = usePrecheckin();
       <Transition>
         <UiReservationCardChargeDetailItem
           v-if="state.prices.Era"
-          title="Road Assistance (ERA)"
+          :title="$t('reservationBill.era')"
           :price="calcuatePrices.era"
         />
       </Transition>

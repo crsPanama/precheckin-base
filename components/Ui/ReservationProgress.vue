@@ -1,13 +1,15 @@
 <template>
   <div>
     <h1 class="text-base md:text-xl">
-      Reservation: <span class="font-bold">K3213123212</span>
+      {{ $t('progress.reservation') }}:
+      <span class="font-bold">{{ state.reservation.Res }}</span>
     </h1>
   </div>
   <UiProgressBar progress-width="50" :route="route" />
 </template>
 
 <script setup lang="ts">
+const { state } = usePrecheckin();
 defineProps<{ backgroundColor: string; route: string }>();
 </script>
 

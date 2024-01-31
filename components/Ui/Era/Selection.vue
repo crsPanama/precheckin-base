@@ -16,9 +16,9 @@ const handleEraSelection = () => {
 };
 </script>
 <template>
-  <UiChargeContainer title="Optional Coverages">
+  <UiChargeContainer :title="$t('optionalCoverage.title')">
     <UiChargeItem
-      title="Roadside Assistance (ERA)"
+      :title="$t('reservationBill.era')"
       :switch-active="checkEraIsSelected"
       :description="ERA_DESCRIPTION"
       :price="ERA_VALUE"

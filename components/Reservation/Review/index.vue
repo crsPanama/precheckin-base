@@ -11,7 +11,7 @@ withDefaults(defineProps<{ showPriceDetails: boolean; priceTotal: number }>(), {
     <div class="bg-primary rounded-t-md py-4 px-3 text-white">
       <h2 class="text-xl md:text-2xl">
         {{ selectedCar.marca }} {{ selectedCar.modelo }}
-        <span class="text-gray-300">or Similar</span>
+        <span class="text-gray-300">{{ $t('reservationReview.similar') }}</span>
       </h2>
     </div>
     <section class="w-4/5 mx-auto max-w-md">
@@ -20,7 +20,9 @@ withDefaults(defineProps<{ showPriceDetails: boolean; priceTotal: number }>(), {
       />
       <UiReservationCardLocationInfo />
       <div v-if="showPriceDetails" class="pt-4">
-        <h3 class="font-bold md:text-xl mb-4">Reservation Details</h3>
+        <h3 class="font-bold md:text-xl mb-4">
+          {{ $t('reservationBill.title') }}
+        </h3>
         <ReservationReviewDropoff />
         <ReservationReviewCar />
         <ReservationReviewCoverages />

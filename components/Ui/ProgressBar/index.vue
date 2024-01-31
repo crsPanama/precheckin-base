@@ -40,7 +40,7 @@ watch(
 watch(
   () => props.route,
   () => {
-        checkRoute();
+    checkRoute();
   }
 );
 </script>
@@ -48,7 +48,11 @@ watch(
   <div
     class="flex justify-around items-center max-w-lg mx-auto my-5 relative progress-bar"
   >
-    <UiProgressBarItem text="Coverages" active-background="bg-red-500" active />
+    <UiProgressBarItem
+      :text="$t('progress.coverages')"
+      active-background="bg-red-500"
+      active
+    />
     <UiProgressBarItem
       text="Extras"
       :active="activeRoutes.extras || activeRoutes.checkout"

@@ -11,12 +11,12 @@ const { pickUpLocation, dueBackLocation } = useLocation();
     class="border-y-2 border-primary my-2 py-4 flex justify-center text-center gap-x-3"
   >
     <UiReservationCardLocationInfoItem
-      title="PICK UP"
+      :title="$t('reservationReview.pickup')"
       :location="pickUpLocation.name"
       :date="reservation.Pickup_Date"
     />
     <UiReservationCardLocationInfoItem
-      title="RETURN"
+      :title="$t('reservationReview.return')"
       :location="dueBackLocation.name"
       :date="reservation.Due_Date"
     />

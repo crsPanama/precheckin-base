@@ -31,24 +31,28 @@ const onSubmit = handleSubmit((cardValues) => {
 <template>
   <form @submit="onSubmit">
     <section class="py-5">
-      <label for="card-number" class="pb-5"> Card Number </label>
+      <label for="card-number" class="pb-5">
+        {{ $t('checkout.card.number.text') }}
+      </label>
       <UiCustomInput
         v-model="ccnumber"
         name="card-number"
         placeholder="4111 1111 1111 1111"
         :focus-color="primaryColor"
-        :error-message="ccnumberError && 'Add a valid Card Number'"
+        :error-message="ccnumberError && $t('checkout.card.number.error')"
       />
     </section>
     <section class="md:flex gap-x-5">
       <div class="max-md:pb-4 md:w-1/2">
-        <label for="card-exp" class="pb-2"> Expiration Date </label>
+        <label for="card-exp" class="pb-2">
+          {{ $t('checkout.card.expiration.text') }}
+        </label>
         <UiCustomInput
           v-model="ccexp"
           placeholder="10/12"
           name="card-exp"
           :focus-color="primaryColor"
-          :error-message="ccexpError && 'Add a valid expiration date'"
+          :error-message="ccexpError && $t('checkout.card.expiration.error')"
         />
       </div>
       <div class="md:w-1/2">
@@ -56,7 +60,7 @@ const onSubmit = handleSubmit((cardValues) => {
         <UiCustomInput
           v-model="cvv"
           placeholder="999"
-          :error-message="cvvError && 'Add a valid CVV number'"
+          :error-message="cvvError && $t('checkout.card.cvv.error')"
           name="card-cvv"
           :focus-color="primaryColor"
         />
@@ -71,7 +75,7 @@ const onSubmit = handleSubmit((cardValues) => {
         :disabled="isFormInvalid"
         light-text
       >
-        Pay
+        {{ $t('checkout.card.button') }}
       </UiBaseButton>
     </section>
   </form>

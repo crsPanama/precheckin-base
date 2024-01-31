@@ -39,7 +39,7 @@ if (state.value.client_info) {
   >
     <div>
       <label for="name" class="block mb-2">
-        Name <span class="text-red-500">*</span>
+        {{ $t('clientInfoForm.name') }} <span class="text-red-500">*</span>
       </label>
       <UiCustomInput
         v-model="Name"
@@ -61,7 +61,7 @@ if (state.value.client_info) {
     </div>
     <div>
       <label for="email" class="block mb-2">
-        License <span class="text-red-500">*</span>
+        {{ $t('clientInfoForm.license') }}<span class="text-red-500">*</span>
       </label>
       <UiCustomInput
         v-model="Licencia"
@@ -72,7 +72,7 @@ if (state.value.client_info) {
     </div>
     <div>
       <label for="email" class="block mb-2">
-        Phone number <span class="text-red-500">*</span>
+        {{ $t('clientInfoForm.number') }} <span class="text-red-500">*</span>
       </label>
       <UiCustomInput
         v-model="Phone_Number"
@@ -91,7 +91,7 @@ if (state.value.client_info) {
         class="border-[1px] p-3 border-gray-300 rounded-mdhover:text-white hover:bg-red-500 transition-colors duration-150 hover:text-white"
         :click-funciton="() => $emit('cancel', true)"
       >
-        Cancel
+        {{ $t('buttons.cancel') }}
       </UiBaseButton>
       <UiBaseButton
         width="50%"
@@ -100,7 +100,7 @@ if (state.value.client_info) {
         type="submit"
         :disabled="!meta.valid"
       >
-        Next
+        {{ $t('buttons.next') }}
       </UiBaseButton>
     </section>
   </form>

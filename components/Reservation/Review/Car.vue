@@ -3,7 +3,7 @@ const { selectedCar } = useCar();
 const { state } = usePrecheckin();
 </script>
 <template>
-  <UiReservationCardChargeDetailContainer title="Model">
+  <UiReservationCardChargeDetailContainer :title="$t('reservationBill.model')">
     <template #charge-item>
       <UiReservationCardChargeDetailItem
         :title="`${selectedCar.marca} ${selectedCar.modelo}`"

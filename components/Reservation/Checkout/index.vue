@@ -61,7 +61,9 @@ const handlePayment = async (cardValues: Card) => {
       <h2 class="font-medium text-xl md:text-2xl">Checkout</h2>
       <!-- CARD PAYMENT -->
       <div class="b my-5 pb-1">
-        <h3 class="border-b-[1px] border-gray-400 py-2 font-medium">Card</h3>
+        <h3 class="border-b-[1px] border-gray-400 py-2 font-medium">
+          {{ $t('checkout.card.title') }}
+        </h3>
         <FormsCheckOutForm
           :primary-color="primaryColor"
           @submit-payment="handlePayment"
@@ -76,15 +78,28 @@ const handlePayment = async (cardValues: Card) => {
         </Transition>
       </div>
       <div class="fixed left-0 z-50">
-        <UiModalPaymentSuccess
+        <UiModalConfirmModal
           v-if="cardPaymentFullfiled || paypalPaymentFullfiled"
+          :title="$t('modals.paymentSuccess.title')"
+          :sub-title="$t('modals.paymentSuccess.subtitle')"
         />
       </div>
       <div>
-        <h3 class="border-b-[1px] border-gray-400 my-6 pb-1">Otros</h3>
+        <h3 class="border-b-[1px] border-gray-400 my-6 pb-1">
+          {{ $t('checkout.others.title') }}
+        </h3>
 
         <div class="py-5 relative z-40">
           <div id="paypal-button"></div>
+        </div>
+      </div>
+      <div>
+        <p class="text-slate-600 text-center text-xs">
+          {{ $t('checkout.checkoutMessage') }}
+        </p>
+        <div>
+          <img src="/img/visa.png" alt="visa" />
+          <img src="/img/mastercard.png" alt="mastercard" />
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ const { calcuatePrices } = usePrices();
         :price="calcuatePrices.subtotal"
       />
       <UiReservationCardChargeDetailItem
-        title="Airport Fee"
+        :title="$t('reservationBill.airport_fee')"
         :price="calcuatePrices.airportFee"
       />
       <UiReservationCardChargeDetailItem
