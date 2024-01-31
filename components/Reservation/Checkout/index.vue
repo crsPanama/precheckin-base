@@ -98,8 +98,8 @@ const handlePayment = async (cardValues: Card) => {
           {{ $t('checkout.checkoutMessage') }}
         </p>
         <div>
-          <img src="/img/visa.png" alt="visa" />
-          <img src="/img/mastercard.png" alt="mastercard" />
+          <!-- <img src="/img/visa.png" alt="visa" />
+          <img src="/img/mastercard.png" alt="mastercard" /> -->
         </div>
       </div>
     </div>
