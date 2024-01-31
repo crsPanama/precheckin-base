@@ -3,13 +3,13 @@
     <template #content>
       <div class="w-11/12 mx-auto md:w-2/3">
         <UiIconsCheck
-          class="w-1/2 h-28 mx-auto text-green-500 popup-animation"
+          class="w-1/2 h-28 mx-auto text-green-600 popup-animation"
         />
         <h3 class="text-center text-xl pt-2 text-animation">
-          Payment Succesfull
+          {{ title }}
         </h3>
         <div class="w-11/12 mx-auto text-center pt-1 text-animation">
-          <h5 class="text-sm mb-2">Redirecting to review page</h5>
+          <h5 class="text-sm mb-2">{{ subTitle }}</h5>
           <LoadingIndicator width="24px" height="24px" color="gray" />
         </div>
       </div>
@@ -17,7 +17,9 @@
   </UiModal>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps<{ title: string; subTitle: string }>();
+</script>
 
 <style scoped>
 .popup-animation {
