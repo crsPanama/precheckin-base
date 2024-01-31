@@ -8,6 +8,8 @@ const DEFAULT_ALERT: Alert = {
 };
 
 export const useAlert = () => {
+  const { t } = useI18n();
+
   const alert = ref<Alert>(DEFAULT_ALERT);
 
   const setAlert = (alertValue: Alert) => {
@@ -18,14 +20,14 @@ export const useAlert = () => {
     if (status === ReservationStatus.PAYED) {
       setAlert({
         type: AlertTypes.ALERT,
-        message: 'Already payed',
+        message: t('home.alertMessages.payed'),
       });
       return;
     }
     if (status === ReservationStatus.CANCELED) {
       setAlert({
         type: AlertTypes.ERROR,
-        message: 'Reservation cancelled',
+        message: t('home.alertMessages.canceled'),
       });
       return;
     }
