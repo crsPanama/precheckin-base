@@ -1,4 +1,3 @@
-import { Reservation } from './../.nuxt/components.d';
 export const uiEn = {
   home: {
     title: 'Enter your reservation information:',
@@ -6,6 +5,11 @@ export const uiEn = {
     inputErrors: {
       required: 'This field is required',
       email: 'Add a valid Email',
+    },
+    alertMessages: {
+      canceled: 'This reservation has been canceled',
+      error: 'Error: reservation not found, check your reservation info',
+      payed: 'This reservation is already payed',
     },
   },
 

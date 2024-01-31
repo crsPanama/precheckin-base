@@ -6,6 +6,12 @@ export const uiEs = {
       required: 'Este campo es obligatorio',
       email: 'Ingrese un E-mail valido',
     },
+    alertMessages: {
+      canceled: 'Esta reservación ha sido cancelada',
+      error:
+        'Error: reservación no encontrada, revise la información de su reserva	',
+      payed: 'Esta reservación ya ha sido pagada',
+    },
   },
 
   reservationReview: {
