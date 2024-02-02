@@ -64,7 +64,13 @@ export interface ReservationUpdateItems
   nombre_cobertura: string;
   Modelo_Auto: string;
   Coberturas: Coverage;
-  Extras: Extra[];
+  Pickup_Location_Name: string;
+  Dueback_Location_Name: string;
+  imagen_auto: string;
+  Extras: {
+    nombre: string;
+    precio: number;
+  }[];
 }
 
 export type EstimatedTotal = Pick<PricingInfo, 'Est_Total'>;
