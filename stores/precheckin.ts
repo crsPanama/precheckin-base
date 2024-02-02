@@ -1,4 +1,3 @@
-import { Reservation } from './../.nuxt/components.d';
 import type {
   ClientInfo,
   PrecheckinInfo,
@@ -41,9 +40,10 @@ const DEFAULT_PRECHECKIN_INFO: PrecheckinInfo = {
 const TAX_VALUE = 7;
 
 export const usePrecheckinStore = defineStore('precheckin', () => {
-  const { selectedCoverage } = useCoverages();
+  const { selectedCoverage, getCoverageTranslatedTitle } = useCoverages();
+  const { selectedLanguage } = useLanguages();
   const { selectedCar } = useCar();
-  const { selectedExtras } = useExtras();
+  const { selectedExtras, getExtraTranslated } = useExtras();
 
   const state = ref<PrecheckinInfo>(DEFAULT_PRECHECKIN_INFO);
 
@@ -57,20 +57,34 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
   };
 
   const getItemsToUpdate = computed(
-    (): Omit<ReservationUpdateItems, 'status' | 'tipo_pago'> => {
+    (): Omit<
+      ReservationUpdateItems,
+      'status' | 'tipo_pago' | 'Dueback_Location_Name' | 'Pickup_Location_Name'
+    > => {
       return {
         ...state.value.prices,
         ...state.value.client_info,
         id: state.value.reservation.id,
         Modelo_Auto: `${selectedCar.value.marca} ${selectedCar.value.modelo}`,
-        nombre_cobertura: selectedCoverage.value.nombre,
+        imagen_auto: selectedCar.value.imagen,
+        nombre_cobertura: <string>(
+          getCoverageTranslatedTitle(
+            selectedLanguage.value,
+            selectedCoverage.value.id
+          )
+        ),
         precio_cobertura: precioCobertura(
           selectedCar.value.tipo,
           selectedCoverage.value.precio,
           selectedCoverage.value.precio_2
         ),
         Coberturas: selectedCoverage.value,
-        Extras: selectedExtras.value,
+        Extras: selectedExtras.value.map((extra) => {
+          return {
+            nombre: getExtraTranslated(extra)!.title,
+            precio: extra.precio * getTotalDays(),
+          };
+        }),
       };
     }
   );
