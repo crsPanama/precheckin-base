@@ -13,6 +13,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const { state, getReservationUpdateItems } = usePrecheckin();
+const { dueBackLocation, pickUpLocation } = useLocation();
 const { updateReservationData } = useReservation('prechecking');
 const {
   processCardPayment,
@@ -38,12 +39,15 @@ const handlePayment = async (cardValues: Card) => {
 
   await processCardPayment(cardValues, params);
 
-  if (cardPaymentFullfiled) {
+  if (cardPaymentFullfiled.value) {
     await updateReservationData({
       ...getReservationUpdateItems.value,
+      Dueback_Location_Name: dueBackLocation.name,
+      Pickup_Location_Name: pickUpLocation.name,
       status: 'Prechecking Pagado',
       tipo_pago: 'tarjeta',
     });
+
     setTimeout(async () => {
       cardPaymentFullfiled.value = false;
       await navigateTo('success');
