@@ -21,6 +21,7 @@ export const usePayment = (
   const { state, getReservationUpdateItems } = usePrecheckin();
   const { selectedCar } = useCar();
   const { selectedCoverage } = useCoverages();
+  const { pickUpLocation, dueBackLocation } = useLocation();
   const { updateReservationData } = useReservation('prechecking');
 
   const processCardPayment = async (cardValues: Card, params: {}) => {
@@ -44,6 +45,8 @@ export const usePayment = (
     if (success.value) {
       updateReservationData({
         ...getReservationUpdateItems.value,
+        Dueback_Location_Name: dueBackLocation.name,
+        Pickup_Location_Name: pickUpLocation.name,
         status: 'Cancelado',
         tipo_pago: 'PayPal',
       });
