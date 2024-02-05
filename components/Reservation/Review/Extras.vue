@@ -14,7 +14,7 @@ const { getTotalDays } = usePrecheckin();
             v-for="extra in selectedExtras"
             :key="extra.id"
             :title="extra.nombre"
-            :price="extra.precio * getTotalDays()"
+            :price="(extra.precio * getTotalDays()).toFixed(2)"
           />
         </TransitionGroup>
       </template>
