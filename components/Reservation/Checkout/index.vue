@@ -3,6 +3,7 @@ import type { Card } from 'crs_layer/types/card';
 import type { PaypalInfo } from 'crs_layer/types/paypalInfo';
 
 interface Props {
+  textTheme: 'dark' | 'light';
   primaryColor: string;
   paymentSecurityKey: string;
   paypalSecurityKey: string;
@@ -10,7 +11,9 @@ interface Props {
   paymentUrl: string;
   paymentExtraParams: {};
 }
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  textTheme: 'light',
+});
 
 const { state, getReservationUpdateItems } = usePrecheckin();
 const { dueBackLocation, pickUpLocation } = useLocation();
@@ -69,6 +72,7 @@ const handlePayment = async (cardValues: Card) => {
           {{ $t('checkout.card.title') }}
         </h3>
         <FormsCheckOutForm
+          :text-theme="textTheme"
           :primary-color="primaryColor"
           @submit-payment="handlePayment"
         />

@@ -3,9 +3,13 @@ import * as yup from 'yup';
 /* This regular expression validates that the card expiration date is in the correct format MM/YY */
 const expDateRegex = /^(0[1-9]|1[0-2])\/(\d{2})$/;
 
-withDefaults(defineProps<{ primaryColor: string }>(), {
-  primaryColor: 'black',
-});
+withDefaults(
+  defineProps<{ primaryColor: string; textTheme: 'dark' | 'light' }>(),
+  {
+    primaryColor: 'black',
+    textTheme: 'light',
+  }
+);
 const emit = defineEmits(['submit-payment']);
 
 const { handleSubmit, errors } = useForm({
@@ -70,10 +74,10 @@ const onSubmit = handleSubmit((cardValues) => {
     <section class="mt-5">
       <UiBaseButton
         type="submit"
-        class="bg-primary p-3 disabled:bg-primary/75"
+        class="bg-primary p-3 disabled:bg-primary/50 font-semibold"
         width="100%"
         :disabled="isFormInvalid"
-        light-text
+        :light-text="textTheme === 'light'"
       >
         {{ $t('checkout.card.button') }}
       </UiBaseButton>

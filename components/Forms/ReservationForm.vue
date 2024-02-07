@@ -4,16 +4,21 @@ import type { ClientInfo } from '../../types/precheckin';
 const { state, setClientInfo } = usePrecheckin();
 const { params } = useRoute();
 
-withDefaults(defineProps<{ primaryColor: string }>(), {
-  primaryColor: 'black',
-});
+withDefaults(
+  defineProps<{ primaryColor: string; textTheme: 'dark' | 'light' }>(),
+  {
+    primaryColor: 'black',
+    textTheme: 'light',
+  }
+);
 
 defineEmits(['cancel']);
 
 const { setFieldValue, meta, useFieldModel, handleSubmit, errors } = useForm({
   validationSchema: clientInfo,
 });
-const [Renters_Email, Licencia, Phone_Number, Name] = useFieldModel([ // TODO: Refactor to useField composable
+const [Renters_Email, Licencia, Phone_Number, Name] = useFieldModel([
+  // TODO: Refactor to useField composable
   'Renters_Email',
   'Licencia',
   'Phone_Number',
@@ -95,8 +100,8 @@ if (state.value.client_info) {
       </UiBaseButton>
       <UiBaseButton
         width="50%"
-        light-text
-        class="border-[1px] border-gray-300 p-3 bg-primary disabled:bg-primary/80 disabled:cursor-not-allowed"
+        :light-text="textTheme === 'light'"
+        class="p-3 bg-primary disabled:bg-primary/80 disabled:cursor-not-allowed"
         type="submit"
         :disabled="!meta.valid"
       >
