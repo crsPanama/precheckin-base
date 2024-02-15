@@ -47,7 +47,7 @@ export const usePayment = (
         ...getReservationUpdateItems.value,
         Dueback_Location_Name: dueBackLocation.name,
         Pickup_Location_Name: pickUpLocation.name,
-        status: 'Cancelado',
+        status: 'Prechecking Pagado',
         tipo_pago: 'PayPal',
       });
     }
