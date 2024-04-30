@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const ERA_VALUE = 3.99;
 const ERA_DESCRIPTION =
-  'ROAD ASSISTANCE (ERA) This coverage offers THE LESSEE the following roadside assistance services free of charge: Loss of car key, towing service, tire replacement, assistance when running out of fuel or battery. The response time by THE LESSOR is subject to the day, time and location of the incident.';
+  'ROAD ASSISTANCE (ERA) This coverage offers THE LESSEE the following roadside assistance services free of charge: Loss of car key, towing service, tire replacement, assistance when running out of battery. The response time by THE LESSOR is subject to the day, time and location of the incident.';
 const { setEra, state } = usePrecheckin();
 
 const checkEraIsSelected = computed(() => {
