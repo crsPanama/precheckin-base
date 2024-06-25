@@ -1,7 +1,7 @@
 {
   "name": "crs-precheckin-layer",
   "type": "module",
-  "version": "1.4.16",
+  "version": "1.4.17",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
