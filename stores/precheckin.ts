@@ -199,7 +199,7 @@ export const usePrecheckinStore = defineStore('precheckin', () => {
       subtotal: subtotal.toFixed(2),
       total: total.toFixed(2),
       coveragePrice: (coveragePrice * totalDias).toFixed(2),
-      era: state.value.prices.Era * totalDias,
+      era: (state.value.prices.Era * totalDias).toFixed(2),
     };
   });
 
